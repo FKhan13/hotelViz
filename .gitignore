@@ -1,0 +1,7 @@
+__pycache__/*.pyc
+hotelViz/__pycache__/*.pyc
+viz/migrations/__pycache__/*.pyc
+viz/__pycache__/*.pyc
+viz/migrations/*
+.idea/*
+db.sqlite3
