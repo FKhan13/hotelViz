@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Suggestion</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -61,9 +61,12 @@
 
             <div class="row">
                 <!--Insert Content here-->
+                <div class="col-lg-12">
+                    <a href="{% url 'viz:bar' fields %}">Bar Chart</a>
+                </div>
             </div>
 
-            <!-- Footer -->
+            <!--Footer-->
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
