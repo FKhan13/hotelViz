@@ -19,12 +19,20 @@
     <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'viz/css/dc.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
       <script src="js/lte-ie7.js"></script>
     <![endif]-->
+
+    <style>
+        #monthly-volume-chart g.y {
+            display: none;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -59,8 +67,51 @@
             </div>
             <!--overview end-->
 
+
             <div class="row">
-                <!--Insert Content here-->
+                <!--This is where the bar graph is drawn-->
+                <div class="col-lg-12">
+                    <label><input type="checkbox"> Order Bar Graph</label>
+
+                    <div class="row">
+                        <div id="fluctuation-chart">
+                            <strong>Days by Fluctuation(%)</strong>
+                            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:fluctuationChart.filterAll();dc.redrawAll();"
+                               style="display: none;">reset</a>
+
+                        </div>
+
+                        <div class="row">
+                            <div id="test">
+                                <strong> New bar graph </strong>
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:chart.filterAll();dc.redrawAll();"
+                                   style="display: none;">reset</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="monthly-volume-chart">
+                        </div>
+                        <p class="muted pull-right" style="margin-right: 15px;">select a time range to zoom in</p>
+                    </div>
+
+
+                    <div class="row">
+                        <div>
+                            <div class="dc-data-count">
+                                <span class="filter-count"></span> selected out of <span class="total-count"></span>
+                                records
+                                | <a
+                                    href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
             <!-- Footer -->
@@ -90,6 +141,16 @@
 
 <!--custom script for all page-->
 <script src="{% static 'viz/js/scripts.js' %}"></script>
+
+
+<script src="{% static 'viz/js/d3.js' %}"></script>
+<script src="{% static 'viz/js/crossfilter.js' %}"></script>
+
+<script src="{% static 'viz/js/dc.js' %}"></script>
+<script src="{% static 'viz/js/colorbrewer.js' %}"></script>
+<script src="{% static 'viz/js/d3.tip.v0.6.3.js' %}"></script>
+<script src="{% static 'viz/js/stock.js' %}"></script>
+<
 
 </body>
 </html>
