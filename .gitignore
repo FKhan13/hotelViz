@@ -5,3 +5,4 @@ viz/__pycache__/*.pyc
 viz/migrations/*
 .idea/*
 db.sqlite3
+viz/static/viz/js/result.json

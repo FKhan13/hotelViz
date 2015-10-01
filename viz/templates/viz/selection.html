@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Selection</title>
+    <title>Hotel Visualization - Suggestion</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -53,29 +53,35 @@
                     <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
-                        <li><i class="fa fa-laptop"></i><a href="{% url 'viz:selection' %}">Interactive Page</a></li>
                     </ol>
                 </div>
             </div>
             <!--overview end-->
 
             <div class="row">
+                <!--Insert Content here-->
                 <div class="col-lg-12">
-                    <!-- Selection Form -->
-                    <form action="." method="post">
-                        {% csrf_token %}
-                        <label><strong>Please choose the data you're interested in...</strong></label><br><br>
-                        {% for checkbox in form.fields %}
-                            <div class="checkbox">
-                                {{ checkbox }}
-                            </div>
-                        {% endfor %}
-                        <br><input type="submit" value="Submit"/>
-                    </form>
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <a href="{% url 'viz:filter' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
+                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'viz:filter' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
+                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'viz:filter' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
+                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
 
-            <!-- Footer -->
+            <!--Footer-->
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
