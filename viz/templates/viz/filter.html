@@ -59,19 +59,39 @@
             <!--overview end-->
 
             <div class="row">
-                <div class="col-lg-12">
-                    <!-- Selection Form -->
-                    <form action="." method="post">
+                <!-- Selection Form -->
+                <form action="." method="post">
+                    <div class="col-lg-8">
                         {% csrf_token %}
-                        <label><strong>Please choose the data you're interested in...</strong></label><br><br>
+                        <label><strong>Please choose the data you're interested in...</strong></label>
                         {% for checkbox in form.fields %}
                             <div class="checkbox">
                                 {{ checkbox }}
                             </div>
                         {% endfor %}
+                    </div>
+                    <div class="col-lg-4">
+                        {% for radio in form.boolean_filters %}
+                            <div class="radio">
+                                {{ radio }}
+                            </div>
+                        {% endfor %}
+                        <div class="float">
+                            {{ form.price_usd.label }}:{{ form.price_usd }}
+                        </div>
+                        <div class="float">
+                            {{ form.prop_review_score.label }}:{{ form.prop_review_score }}
+                        </div>
+                        <div class="float">
+                            {{ form.prop_starrating.label }}:{{ form.prop_starrating }}
+                        </div>
+                        <div class="float">
+                            {{ form.visitor_hist_starrating.label }}:{{ form.visitor_hist_starrating }}
+                        </div>
+                            {{ form.type }}
                         <br><input type="submit" value="Submit"/>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
 
             <!-- Footer -->

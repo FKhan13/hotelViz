@@ -64,10 +64,9 @@
             </div>
             <!--overview end-->
 
-            <div class="row" id="map">
+            <div class="row">
+                <div class="col-lg-8">
                     <!--Position of the map-->
-                    <br>
-                    <br>
 
                     <div id="myclass">
                         <h2>Click on a country and then click the first search button to continue...</h2>
@@ -77,10 +76,12 @@
                     <!--Button used to continue to the search page-->
                     <button id="next"> Search</button>
 
+                </div>
+                <div class="col-lg-4">
+
                     <!--Drop Down selection -->
-                    <hr>
                     <div class="form-group">
-                        <br><label> Don't dispare! The country you are struggling to find is also in this drop down
+                        <br><br><br><br><br><br><br><br><br><br><label> Don't dispare! The country you are struggling to find is also in this drop down
                         menu,
                         click the second search button once you have found where you want to go...</label><br>
                         <br>
@@ -91,6 +92,7 @@
                         <br/>
                     </div>
                     <button onClick="GetSelectedItem();"> Search</button>
+                </div>
             </div>
 
             <!-- Footer -->
@@ -115,8 +117,8 @@
 <script src="{% static 'viz/js/bootstrap.min.js' %}"></script>
 
 <!-- nice scroll -->
-<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>
-<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+{#<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>#}
+{#<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>#}
 
 <!-- jQuery.flagstrap -->
 <script src="{% static 'viz/js/jquery.flagstrap.js' %}"></script>

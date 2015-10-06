@@ -3,11 +3,12 @@ from django.views import generic
 from django.db import connection
 from .forms import SelectionForm
 from django.http import Http404
-from viz.models import BigTable
+from viz.models import Countries
 import psycopg2
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
-import re, json
+import re
+import json
 
 # Data Types
 numeric = ['visitor_location_country_id', 'visitor_hist_starrating', 'visitor_hist_adr_usd', 'prop_starrating',
@@ -21,6 +22,7 @@ identifiers = ['srch_id', 'site_id', 'visitor_location_country_id', 'prop_countr
                'srch_destination_id']
 booleans = ['prop_brand_bool', 'promotion_flag', 'srch_saturday_night_bool', 'random_bool', 'click_bool',
             'booking_bool']
+filters = ['price_usd', 'visitor_hist_starrating', 'prop_starrating', 'prop_review_score']
 competitor_info = ['comp1_rate', 'comp1_inv', 'comp1_rate_percent_diff', 'comp2_rate', 'comp2_inv',
                    'comp2_rate_percent_diff',
                    'comp3_rate', 'comp3_inv', 'comp3_rate_percent_diff', 'comp4_rate', 'comp4_inv',
@@ -51,47 +53,101 @@ def field(request, country):
         if form.is_valid():
             # redirect to a new URL:
             # Will have to incorporate logic for deciding if graph that is selected is applicable to be drawn and will sort through form data
-            return render_to_response('viz/bar.html', {"fields": form.cleaned_data['fields']})
+            chart = form.cleaned_data['type']
+
+            if chart == 'bar':
+                # Determine what type of filter has been selected and its name
+                filter_string = ""
+                filter_type = ""
+                # Handle the case where the filter is a boolean type
+                if form.cleaned_data['boolean_filters'] != '':
+                    filter_string = form.cleaned_data['boolean_filters']
+                    filter_type = "bool"
+                # handle the case when the filter is either an integer or a float
+                else:
+                    for f in filters:
+                        if form.cleaned_data[f] is not None:
+                            filter_string = form.cleaned_data[f]
+                            if isinstance(filter_string, int):
+                                filter_type = "int"
+                                break
+                            else:
+                                filter_type = "float"
+                                break
+
+                # Find country
+                country = country.replace('_', ' ')
+                country_object = Countries.objects.get(a_name=country)
+                country_id = country_object.name
+
+                # create query and render the graph
+                columns = form.cleaned_data['fields']
+                bar(columns, country_id, filter_string, filter_type)
+                return render_to_response('viz/bar.html')
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = SelectionForm()
+        form = SelectionForm(initial={'type': chart_type})
 
-    return render(request, 'viz/filter.html', {'form': form})
+    return render(request, 'viz/filter.html', {'form': form, 'chart_type': chart_type})
 
 
-def bar(request, fields):
-    field_string = re.sub('[\[\]\']', '', fields)
+def bar(fields, country, filter_string, filter_type):
+    if isinstance(fields, str):
+        print(fields)
+    field_string = re.sub("[\[\]\']", '', str(fields))
     columns = field_string.split(", ")
 
     # Bar charts should only be created for 1 column vs another
-    if columns.__len__() is not 2:
+    if columns.__len__() != 2:
         raise Http404("There are more than two columns selected - A bar chart is not applicable to be created")
-    # clasiifier = []
-    #
-    # if columns[0] and columns[1] in numeric or columns[0] in numeric and columns[1] in identifiers:
-    #     clasiifier.append("NumNum")
-    #     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + columns[0] + " AS xCord," + columns[1] + " AS yCord FROM viz_bigtable WHERE " + columns[0] + " IS NOT NULL AND " + columns[1] + " IS NOT NULL) t"
-    #     collect_from_db_and_write_to_file_bar(query)
-    #
-    # elif columns[0] in numeric and columns[1] in booleans:
-    #     clasiifier.append("NumBool")
-    #     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + columns[1] + " AS xCord," + columns[0] + " AS yCord FROM viz_bigtable WHERE " + columns[1] + " = TRUE AND " + columns[0] + " IS NOT NULL) t"
-    #     collect_from_db_and_write_to_file_bar(query)
-    #
-    # elif columns[0] in booleans and columns[1] in identifiers:
-    #     clasiifier.append("BoolID")
-    #     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + columns[1] + " AS xCord," + columns[0] + " AS yCord FROM viz_bigtable WHERE " + columns[0] + " = TRUE AND " + columns[1] + " IS NOT NULL) t"
-    #     collect_from_db_and_write_to_file_bar(query)
-    #
-    # elif columns[0] and columns[1] in booleans:
-    #     clasiifier.append("BoolBool")
-    #     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + columns[0] + " AS xCord," + columns[1] + " AS yCord FROM viz_bigtable WHERE " + columns[0] + " = TRUE AND " + columns[1] + " = TRUE) t"
-    #     collect_from_db_and_write_to_file_bar(query)
-    #
-    # config_list = list({'type': clasiifier[0], 'xaxis': columns[0], 'yaxis': columns[1]})
 
-    return render_to_response('viz/bar.html')  # , {'config': config_list})
+    graph_type = ""
+    x = None
+    y = None
+
+    if columns[0] and columns[1] in numeric:
+        graph_type = "NumNum"
+        x = columns[0]
+        y = columns[1]
+    elif columns[0] in numeric and columns[1] in identifiers:
+        graph_type = "NumNum"
+        x = columns[1]
+        y = columns[0]
+    elif columns[0] in identifiers and columns[1] in numeric:
+        graph_type = "NumNum"
+        x = columns[0]
+        y = columns[1]
+    elif columns[0] in booleans and columns[1] in numeric:
+        graph_type = "NumBool"
+        x = columns[0]
+        y = columns[1]
+    elif columns[0] in numeric and columns[1] in booleans:
+        graph_type = "NumBool"
+        x = columns[1]
+        y = columns[0]
+    elif columns[0] in booleans and columns[1] in identifiers:
+        graph_type = "BoolIdent"
+        x = columns[0]
+        y = columns[1]
+    elif columns[0] in identifiers and columns[1] in booleans:
+        graph_type = "BoolIdent"
+        x = columns[1]
+        y = columns[0]
+    elif columns[0] and columns[1] in booleans:
+        graph_type = "BoolBool"
+        x = columns[0]
+        y = columns[1]
+    else:
+        raise Http404("Could not determine graph type")
+
+    query = create_query(x, y, graph_type, country, filter_string, filter_type)
+    collect_from_db_and_write_to_file_bar(query)
+    # , {'config': config_list})
+
+
+# def filter_identification(bools, price, vis_star_rating, prop_star_rating, prop_review_score):
+#
 
 
 def collect_from_db_and_write_to_file_bar(query):
@@ -104,3 +160,45 @@ def collect_from_db_and_write_to_file_bar(query):
 
     cur.close()
     connection.close()
+
+
+def create_query(x, y, graph_type, country, filter_string, filter_type):
+    query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + x + " AS xCord," + y + " AS yCord FROM viz_bigtable WHERE "
+
+    if graph_type == "NumNum":
+        append = x + " IS NOT NULL AND " + y + " IS NOT NULL AND "
+        query += append
+    elif graph_type == "NumBool":
+        append = x + "= TRUE AND " + y + " IS NOT NULL AND "
+        query += append
+    elif graph_type == "BoolIdent":
+        append = x + " IS NOT NULL AND " + y + "= TRUE AND "
+        query += append
+    elif graph_type == "BoolBool":
+        append = x + "= TRUE AND " + y + "= TRUE AND "
+        query += append
+    else:
+        raise Http404("Graph type is incorrect")
+
+    if filter_type == "bool":
+        append = filter_string + "= TRUE AND "
+        query += append
+    elif filter_type == "int":
+        filter_upper = filter_string + 0.5
+        filter_lower = filter_string - 0.5
+        append = str(filter_string) + ">=" + str(filter_lower) + " AND " + str(filter_string) + "<=" + str(
+            filter_upper) + " AND "
+        query += append
+    elif filter_type == "float":
+        filter_upper = filter_string + 100
+        filter_lower = filter_string - 100
+        append = str(filter_string) + ">=" + str(filter_lower) + " AND " + str(filter_string) + "<=" + str(
+            filter_upper) + " AND "
+        query += append
+    else:
+        raise Http404("Could not determine filter type")
+
+    append = "prop_country_id = " + str(country) + ") t"
+    query += append
+
+    return query

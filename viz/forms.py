@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, RadioSelect
 
 
 class SelectionForm(forms.Form):
@@ -58,4 +58,28 @@ class SelectionForm(forms.Form):
          'The percentage difference between Expedias booking rate and Competitor Eights booking rate'),
         ('click_bool', 'Hotels that were Clicked'),
         ('gross_bookings_usd', 'Cost of the Bookings in US Dollars'), ('booking_bool', 'Hotels that were Booked'))
+
+    booleans = (
+        ('prop_brand_bool', 'Filter by branded hotels?'), ('promotion_flag', 'Filter by hotels that were on promotion?'),
+        ('srch_saturday_night_bool', 'Filter by searches that were less than four days and included saturdays?'),
+        ('random_bool', 'Filter by searches that were random?'),
+        ('click_bool', 'Filter by search results that were clicked?'),
+        ('booking_bool', 'Filter by search results that were booked?'))
+
     fields = forms.MultipleChoiceField(choices=DBColumns, required=True, widget=CheckboxSelectMultiple)
+    boolean_filters = forms.ChoiceField(choices=booleans, required=False, widget=RadioSelect)
+    # prop_brand_bool = forms.NullBooleanField(label='Filter by branded hotels?', required=False)
+    # promotion = forms.NullBooleanField(label='Filter by hotels that were on promotion?', required=False)
+    # srch_saturday_night_bool = forms.NullBooleanField(
+    #     label='Filter by searches that were less than four days and included saturdays?', required=False)
+    # random_bool = forms.NullBooleanField(label='Filter by searches that were random?', required=False)
+    # click_bool = forms.NullBooleanField(label='Filter by search results that were clicked?', required=False)
+    # booking_bool = forms.NullBooleanField(label='Filter by search results that were booked?', required=False)
+    price_usd = forms.FloatField(label='Filter by hotel price', min_value=0, required=False)
+    visitor_hist_starrating = forms.IntegerField(label='Filter by users average star rating awarded?', min_value=0,
+                                                 max_value=5, required=False)
+    prop_review_score = forms.IntegerField(label='Filter by hotel review score?', min_value=0, max_value=5,
+                                           required=False)
+    prop_starrating = forms.IntegerField(label='Filter by hotel star rating?', min_value=0, max_value=5, required=False)
+    type = forms.CharField(widget=forms.HiddenInput, required=False)
+    # site_id = forms.IntegerField(label='Filter by website used?', min_value=0, max_value=)

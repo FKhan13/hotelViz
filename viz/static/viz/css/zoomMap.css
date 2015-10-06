@@ -7,14 +7,14 @@
   font-size:10px;
   text-transform:capitalize;
 }
-#map {
-  margin:10px 10%;
-  border:2px solid #000;
-  border-radius: 5px;
-  height:100%;
-  overflow:hidden;
-  background: #fff;
-}
+/*#map {*/
+  /*margin:10px 10%;*/
+  /*border:2px solid #000;*/
+  /*border-radius: 5px;*/
+  /*height:100%;*/
+  /*overflow:hidden;*/
+  /*background: #fff;*/
+/*}*/
 .hidden { 
   display: none; 
 }
