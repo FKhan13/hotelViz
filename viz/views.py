@@ -45,62 +45,56 @@ def selection(request, country):
 
 # view that allows user to select fields that should be plotted for a graph
 def field(request, country):
-    chart_type = request.GET.get('chartType')
+    chart_type = request.GET.get('chartType')  # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = BarForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # redirect to a new URL:
+            # Will have to incorporate logic for deciding if graph that is selected is applicable to be drawn and will sort through form data
+            chart = form.cleaned_data['type']
 
-    if chart_type == "bar":
-        # if this is a POST request we need to process the form data
-        if request.method == 'POST':
-            # create a form instance and populate it with data from the request:
-            form = BarForm(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                # redirect to a new URL:
-                # Will have to incorporate logic for deciding if graph that is selected is applicable to be drawn and will sort through form data
-                chart = form.cleaned_data['type']
+            if chart == 'bar':
+                # Determine what type of filter has been selected and its name
+                filter_string = ""
+                filter_type = ""
+                filter_name = ""  # Only used if the filter is a numerical integer
+                # Handle the case where the filter is a boolean type
+                if form.cleaned_data['boolean_filters'] != '':
+                    filter_string = form.cleaned_data['boolean_filters']
+                    filter_type = "bool"
+                # handle the case when the filter is either an integer or a float
+                else:
+                    for f in filters:
+                        if form.cleaned_data[f] is not None:
+                            filter_string = form.cleaned_data[f]
+                            if isinstance(filter_string, int):
+                                filter_type = "int"
+                                filter_name = f
+                                break
+                            else:
+                                filter_type = "float"
+                                break
 
-                if chart == 'bar':
-                    # Determine what type of filter has been selected and its name
-                    filter_string = ""
-                    filter_type = ""
-                    filter_name = ""  # Only used if the filter is a numerical integer
-                    # Handle the case where the filter is a boolean type
-                    if form.cleaned_data['boolean_filters'] != '':
-                        filter_string = form.cleaned_data['boolean_filters']
-                        filter_type = "bool"
-                    # handle the case when the filter is either an integer or a float
-                    else:
-                        for f in filters:
-                            if form.cleaned_data[f] is not None:
-                                filter_string = form.cleaned_data[f]
-                                if isinstance(filter_string, int):
-                                    filter_type = "int"
-                                    filter_name = f
-                                    break
-                                else:
-                                    filter_type = "float"
-                                    break
+                # Find country
+                country = country.replace('_', ' ')
+                country_object = Countries.objects.get(a_name=country)
+                country_id = country_object.name
 
-                    # Find country
-                    country = country.replace('_', ' ')
-                    country_object = Countries.objects.get(a_name=country)
-                    country_id = country_object.name
+                # create query and render the graph
+                columns = form.cleaned_data['fields']
+                bar(columns, country_id, filter_string, filter_type, filter_name)
+                return render_to_response('viz/bar.html')
 
-                    # create query and render the graph
-                    columns = form.cleaned_data['fields']
-                    bar(columns, country_id, filter_string, filter_type, filter_name)
-                    return render_to_response('viz/bar.html')
-
-        # if a GET (or any other method) we'll create a blank form
-        else:
-            form = BarForm(initial={'type': chart_type})
-
-        return render(request, 'viz/filter_bar.html',
-                      {'form': form, 'chart_type': chart_type, 'hotel_characteristics_loop': range(1, 10),
-                       'visitor_information_loop': range(10, 15), 'srch_characteristics_loop': range(15, 25),
-                       'booking_characteristics_loop': range(25, 28)})
-
+    # if a GET (or any other method) we'll create a blank form
     else:
-        raise Http404("Could not determine chart type")
+        form = BarForm(initial={'type': chart_type})
+
+    return render(request, 'viz/filter_bar.html',
+                  {'form': form, 'chart_type': chart_type, 'hotel_characteristics_loop': range(1, 10),
+                   'visitor_information_loop': range(10, 15), 'srch_characteristics_loop': range(15, 25),
+                   'booking_characteristics_loop': range(25, 28)})
 
 
 def motion(request, country):
