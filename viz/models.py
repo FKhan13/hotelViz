@@ -9,7 +9,7 @@ class BigTable(models.Model):
     site_id = models.IntegerField(db_index=True)
     visitor_location_country_id = models.IntegerField(blank=True, null=True, db_index=True)
     visitor_hist_starrating = models.FloatField(blank=True, null=True, db_index=True)
-    visitor_hist_adr_usd = models.FloatField(blank=True, null=True)
+    visitor_hist_adr_usd = models.FloatField(blank=True, null=True, db_index=True)
     prop_country_id = models.IntegerField(db_index=True)
     prop_id = models.IntegerField(db_index=True)
     prop_starrating = models.IntegerField(db_index=True)
