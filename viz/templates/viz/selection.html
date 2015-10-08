@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Suggestion</title>
+    <title>Hotel Visualization - Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -64,16 +64,12 @@
                     <table style="width:100%">
                         <tr>
                             <td>
-                                <a href="{% url 'viz:bar' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
+                                <a href="{% url 'viz:bar' country %}"> <img border="0" alt="Bar Graph"
                                                                                              src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
                             </td>
                             <td>
-                                <a href="{% url 'viz:motion' country %}?chartType=motion"> <img border="0" alt="Motion Graph"
+                                <a href="{% url 'viz:motion' country %}"> <img border="0" alt="Motion Graph"
                                                                                              src="{% static 'viz/images/bubble.png' %}"> <br> Motion Graph </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'viz:bar' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
-                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
                             </td>
                         </tr>
                     </table>

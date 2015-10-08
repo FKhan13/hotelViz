@@ -5,7 +5,7 @@ from django.forms import CheckboxSelectMultiple, RadioSelect
 class BarForm(forms.Form):
     DBColumns = (
         # Hotel Characteristics
-        ('prop_country_id', 'Hotel Country'), ('prop_starrating', 'Hotel Star Rating'),
+        ('prop_starrating', 'Hotel Star Rating'),
         ('prop_review_score', 'Hotel Review Score'), ('prop_brand_bool', 'Branded Hotels'),
         ('prop_location_score1', 'Hotel Location Popularity 1'),
         ('prop_location_score2', 'Hotel Location Popularity 2'),
@@ -13,7 +13,6 @@ class BarForm(forms.Form):
         ('price_usd', 'Hotel Price For A particular Search'),
         ('promotion_flag', 'Hotels That Were on Promotion'),
         # Visitor Information
-        ('visitor_location_country_id', 'Visitors Country'),
         ('visitor_hist_starrating', 'Visitors Historical Star Rating'),
         ('visitor_hist_adr_usd', 'Visitors Historical Spending in US Dollars'), ('site_id', 'Website Searched From'),
         ('orig_destination_distance', 'The distance between the Visitors location to the Hotel location'),
@@ -81,7 +80,6 @@ class BarForm(forms.Form):
     prop_review_score = forms.IntegerField(label='Filter by hotel review score?', min_value=0, max_value=5,
                                            required=False)
     prop_starrating = forms.IntegerField(label='Filter by hotel star rating?', min_value=0, max_value=5, required=False)
-    type = forms.CharField(widget=forms.HiddenInput, required=False)
 
 
 class MotionForm(forms.Form):
@@ -98,7 +96,6 @@ class MotionForm(forms.Form):
                ('price_usd', 'Hotel Price For A particular Search'),
                ('srch_length_of_stay', 'Length of Stay Searched For'),
                ('srch_booking_window', 'The Amount of Time between when the Search was done to the Date of Stay'),
-               ('srch_adults_count', 'Number of Adults Searched For'),
                ('srch_adults_count', 'Number of Adults Searched For'),
                ('srch_room_count', 'Number of Rooms Searched for'),
                ('srch_query_affinity_score',
@@ -120,5 +117,5 @@ class MotionForm(forms.Form):
     y = forms.ChoiceField(choices=num_bool, required=True, label="Select the data to be plotted on the y-axis:")
     radius = forms.ChoiceField(choices=num_bool, required=True,
                                label="Select the data to be displayed by means of the size of the bubble:")
-    circum_color = forms.ChoiceField(choices=num_bool, required=True,
-                                     label="Select the data to be displayed on the circumference of the bubble:")
+    circum_color = forms.ChoiceField(choices=numeric, required=True,
+                                     label="Select the data to be displayed by means of the colour of the circumference of the bubble:")

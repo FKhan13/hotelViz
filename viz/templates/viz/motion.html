@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Motion Chart</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -16,9 +16,11 @@
     <!-- bootstrap theme -->
     <link href="{% static 'viz/css/bootstrap-theme.css' %}" rel="stylesheet">
     <!-- font icon -->
-    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet"/>
+    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
+    <!-- Used by Motion chart -->
+    <link href="{% static 'viz/css/motions.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -38,7 +40,7 @@
         </div>
 
         <!--logo start-->
-        <a href="" class="logo">Hotel <span class="lite">Visualization</span></a>
+        <a href="{% url 'viz:index' %}" class="logo">Hotel <span class="lite">Visualization</span></a>
         <!--logo end-->
     </header>
     <!--header end-->
@@ -58,9 +60,11 @@
             </div>
             <!--overview end-->
 
-            
+
             <div class="row">
-                <!--Insert Content here-->
+                <div id="chart"></div>
+
+                <h3>Mouseover the date to move forward and backwards through time</h3>
             </div>
 
             <!-- Footer -->
@@ -91,6 +95,11 @@
 
 <!--custom script for all page-->
 <script src="{% static 'viz/js/scripts.js' %}"></script>
+
+<!-- Scripts used to render the bar chart -->
+<script src="{% static 'viz/js/d3.v3.min.js' %}"></script>
+<script src="{% static 'viz/js/crossfilter.v1.min.js' %}"></script>
+<script src="{% static 'viz/js/motions.js' %}"></script>
 
 </body>
 </html>

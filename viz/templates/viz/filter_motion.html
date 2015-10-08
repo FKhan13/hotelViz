@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Motion Chart Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -60,11 +60,19 @@
 
 
             <div class="row">
-                <form action="./motion" method="post">
-                    {% csrf_token %}
-                    <table>{{ form }}</table>
-                    <input type="submit" value="Submit"/>
-                </form>
+                <div class="col-lg-12">
+                    <form action="./motion" method="post">
+                        {% csrf_token %}
+
+                        <table>{{ form }}
+                            <tr>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
 
             <!-- Footer -->

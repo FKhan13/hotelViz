@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Selection</title>
+    <title>Hotel Visualization - Bar Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -75,10 +75,10 @@
                         <br><br><br><br>
 
                         <h3 id="hotel">Hotel Characteristics:</h3>
-                        <br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br>
 
                         <h3 id="visitor">Visitor Information:</h3>
-                        <br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br>
 
                         <h3 id="search">Search Characteristics:</h3>
                         <br><br><br><br><br><br><br><br>
@@ -91,14 +91,14 @@
                             <div class="radio" id="hotel">
                                 {{ checkbox }}
                             </div>
-                            {% if forloop.counter == 9 %}
+                            {% if forloop.counter == 8 %}
                                 <hr>
                             {% endif %}
                         {% elif forloop.counter in visitor_information_loop %}
                             <div class="radio" id="visitor">
                                 {{ checkbox }}
                             </div>
-                            {% if forloop.counter == 14 %}
+                            {% if forloop.counter == 12 %}
                                 <hr>
                             {% endif %}
                         {% elif forloop.counter in srch_characteristics_loop %}
@@ -106,7 +106,7 @@
                                 {{ checkbox }}
                             </div>
 
-                            {% if forloop.counter == 24 %}
+                            {% if forloop.counter == 22 %}
                                 <hr>
                             {% endif %}
                         {% elif forloop.counter in booking_characteristics_loop %}
@@ -125,9 +125,9 @@
                     </div>
                     <div class="col-lg-6">
                         <h3 id="bool">Booleans:</h3>
-                        {% for radio in form.boolean_filters %}
-                            <div class="radio" id="bool">
-                                {{ radio }}
+                        {% for checkbox in form.boolean_filters %}
+                            <div class="checkbox" id="bool">
+                                {{ checkbox }}
                             </div>
                         {% endfor %}
                     </div>
@@ -161,9 +161,8 @@
                                     <td>{{ form.visitor_hist_starrating }}</td>
                                 </div>
                             </tr>
-                            {{ form.type }}
                             <tr>
-                                <td><br><input type="submit" value="Submit"/></td>
+                                <td><br><button type="submit" class="btn btn-primary">Submit</button></td>
                             </tr>
                         </table>
                     </div>

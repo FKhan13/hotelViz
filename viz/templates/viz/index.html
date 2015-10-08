@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -19,12 +19,6 @@
     <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
-    <!-- JQuerry ScTipTop (Used for the dropdown box) -->
-    <link href="{% static 'viz/css/jquerysctipttop.css' %}" rel="stylesheet">
-    <!-- Flags.css used to add flags to countries -->
-    <link href="{% static 'viz/css/flags/flags.css' %}" rel="stylesheet">
-    <!-- ZoomMap.css used to style to map -->
-    <link rel="stylesheet" href="{% static 'viz/css/zoomMap.css' %}">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -65,37 +59,25 @@
             <!--overview end-->
 
             <div class="row">
-                <div class="col-lg-8">
-                    <!--Position of the map-->
+                <!--Insert Content here-->
+                <div class="col-lg-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <a href="{% url 'viz:explore' %}"> <img border="0" alt="Bar Graph"
+                                                                                             src="{% static 'viz/images/explore.png' %}"> <br> Explore </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'viz:set' %}"> <img border="0" alt="Motion Graph"
+                                                                                             src="{% static 'viz/images/bubble.png' %}"> <br> Set graphs </a>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <div id="myclass">
-                        <h2>Click on a country and then click the first search button to continue...</h2>
-                        <br>
-                    </div>
-
-                    <!--Button used to continue to the search page-->
-                    <button id="next"> Search</button>
-
-                </div>
-                <div class="col-lg-4">
-
-                    <!--Drop Down selection -->
-                    <div class="form-group">
-                        <br><br><br><br><br><br><br><br><br><br><label> Don't dispare! The country you are struggling to find is also in this drop down
-                        menu,
-                        click the second search button once you have found where you want to go...</label><br>
-                        <br>
-
-                        <div id="basic"
-                             data-input-name="country">
-                        </div>
-                        <br/>
-                    </div>
-                    <button onClick="GetSelectedItem();"> Search</button>
                 </div>
             </div>
 
-            <!-- Footer -->
+            <!--Footer-->
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
@@ -117,19 +99,8 @@
 <script src="{% static 'viz/js/bootstrap.min.js' %}"></script>
 
 <!-- nice scroll -->
-{#<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>#}
-{#<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>#}
-
-<!-- jQuery.flagstrap -->
-<script src="{% static 'viz/js/jquery.flagstrap.js' %}"></script>
-
-<!-- Drop.js used for the dropdown box -->
-<script src="{% static 'viz/js/drop.js' %}"></script>
-
-<!--Country selector-->
-<script src="{% static 'viz/js/d3.min.js' %}"></script>
-<script src="{% static 'viz/js/topojson.js' %}"></script>
-<script src="{% static 'viz/js/zoomMap.js' %}"></script>
+<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
 
 <!--custom script for all page-->
 <script src="{% static 'viz/js/scripts.js' %}"></script>
