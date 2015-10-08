@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Suggestion</title>
+    <title>Hotel Visualization - Home</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -16,7 +16,7 @@
     <!-- bootstrap theme -->
     <link href="{% static 'viz/css/bootstrap-theme.css' %}" rel="stylesheet">
     <!-- font icon -->
-    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
@@ -38,7 +38,7 @@
         </div>
 
         <!--logo start-->
-        <a href="{% url 'viz:index' %}" class="logo">Hotel <span class="lite">Visualization</span></a>
+        <a href="" class="logo">Hotel <span class="lite">Visualization</span></a>
         <!--logo end-->
     </header>
     <!--header end-->
@@ -58,30 +58,12 @@
             </div>
             <!--overview end-->
 
+            
             <div class="row">
                 <!--Insert Content here-->
-                <div class="col-lg-12">
-                    <table style="width:100%">
-                        <tr>
-                            <td>
-                                <a href="{% url 'viz:filter_bar' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
-                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'viz:filter_motion' country %}?chartType=motion"> <img border="0" alt="Motion Graph"
-                                                                                             src="{% static 'viz/images/bubble.png' %}"> <br> Motion Graph </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'viz:filter_bar' country %}?chartType=bar"> <img border="0" alt="Bar Graph"
-                                                                                             src="{% static 'viz/images/chart_bar.png' %}"> <br> Bar Graph </a>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
             </div>
 
-            <!--Footer-->
+            <!-- Footer -->
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
@@ -96,6 +78,7 @@
     </section>
     <!--main content end-->
 </section>
+<!-- container section start -->
 
 <!-- javascripts -->
 <script src="{% static 'viz/js/jquery.js' %}"></script>

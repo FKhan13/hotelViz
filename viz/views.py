@@ -1,20 +1,21 @@
-from django.shortcuts import render, render_to_response
-from django.views import generic
-from django.db import connection
-from .forms import SelectionForm
-from django.http import Http404
-from viz.models import Countries
-import psycopg2
-from django.core import serializers
-from django.core.serializers.json import DjangoJSONEncoder
 import re
 import json
 
+from django.shortcuts import render, render_to_response
+from django.views import generic
+from django.db import connection
+
+from django.http import Http404
+
+from .forms import BarForm, MotionForm
+from viz.models import Countries
+
+
 # Data Types
-numeric = ['visitor_location_country_id', 'visitor_hist_starrating', 'visitor_hist_adr_usd', 'prop_starrating',
+numeric = ['visitor_hist_starrating', 'visitor_hist_adr_usd', 'prop_starrating',
            'prop_review_score',
            'prop_location_score1', 'prop_location_score2', 'prop_log_historical_price', 'price_usd',
-           'srch_length_of_stay', 'srch_length_of_stay',
+           'srch_length_of_stay',
            'srch_booking_window', 'srch_adults_count', 'srch_children_count', 'srch_room_count',
            'srch_query_affinity_score',
            'orig_destination_distance', 'gross_bookings_usd']
@@ -45,54 +46,84 @@ def selection(request, country):
 # view that allows user to select fields that should be plotted for a graph
 def field(request, country):
     chart_type = request.GET.get('chartType')
+
+    if chart_type == "bar":
+        # if this is a POST request we need to process the form data
+        if request.method == 'POST':
+            # create a form instance and populate it with data from the request:
+            form = BarForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                # redirect to a new URL:
+                # Will have to incorporate logic for deciding if graph that is selected is applicable to be drawn and will sort through form data
+                chart = form.cleaned_data['type']
+
+                if chart == 'bar':
+                    # Determine what type of filter has been selected and its name
+                    filter_string = ""
+                    filter_type = ""
+                    filter_name = ""  # Only used if the filter is a numerical integer
+                    # Handle the case where the filter is a boolean type
+                    if form.cleaned_data['boolean_filters'] != '':
+                        filter_string = form.cleaned_data['boolean_filters']
+                        filter_type = "bool"
+                    # handle the case when the filter is either an integer or a float
+                    else:
+                        for f in filters:
+                            if form.cleaned_data[f] is not None:
+                                filter_string = form.cleaned_data[f]
+                                if isinstance(filter_string, int):
+                                    filter_type = "int"
+                                    filter_name = f
+                                    break
+                                else:
+                                    filter_type = "float"
+                                    break
+
+                    # Find country
+                    country = country.replace('_', ' ')
+                    country_object = Countries.objects.get(a_name=country)
+                    country_id = country_object.name
+
+                    # create query and render the graph
+                    columns = form.cleaned_data['fields']
+                    bar(columns, country_id, filter_string, filter_type, filter_name)
+                    return render_to_response('viz/bar.html')
+
+        # if a GET (or any other method) we'll create a blank form
+        else:
+            form = BarForm(initial={'type': chart_type})
+
+        return render(request, 'viz/filter_bar.html',
+                      {'form': form, 'chart_type': chart_type, 'hotel_characteristics_loop': range(1, 10),
+                       'visitor_information_loop': range(10, 15), 'srch_characteristics_loop': range(15, 25),
+                       'booking_characteristics_loop': range(25, 28)})
+
+    else:
+        raise Http404("Could not determine chart type")
+
+
+def motion(request, country):
+    chart_type = request.GET.get('chartType')
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = SelectionForm(request.POST)
+        form = MotionForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
             # redirect to a new URL:
-            # Will have to incorporate logic for deciding if graph that is selected is applicable to be drawn and will sort through form data
-            chart = form.cleaned_data['type']
-
-            if chart == 'bar':
-                # Determine what type of filter has been selected and its name
-                filter_string = ""
-                filter_type = ""
-                # Handle the case where the filter is a boolean type
-                if form.cleaned_data['boolean_filters'] != '':
-                    filter_string = form.cleaned_data['boolean_filters']
-                    filter_type = "bool"
-                # handle the case when the filter is either an integer or a float
-                else:
-                    for f in filters:
-                        if form.cleaned_data[f] is not None:
-                            filter_string = form.cleaned_data[f]
-                            if isinstance(filter_string, int):
-                                filter_type = "int"
-                                break
-                            else:
-                                filter_type = "float"
-                                break
-
-                # Find country
-                country = country.replace('_', ' ')
-                country_object = Countries.objects.get(a_name=country)
-                country_id = country_object.name
-
-                # create query and render the graph
-                columns = form.cleaned_data['fields']
-                bar(columns, country_id, filter_string, filter_type)
-                return render_to_response('viz/bar.html')
+            return render_to_response('viz/motion.html')
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = SelectionForm(initial={'type': chart_type})
+        form = MotionForm()
 
-    return render(request, 'viz/filter.html', {'form': form, 'chart_type': chart_type})
+    return render(request, 'viz/filter_motion.html', {'form': form})
 
 
-def bar(fields, country, filter_string, filter_type):
+def bar(fields, country, filter_string, filter_type, filter_name):
     if isinstance(fields, str):
         print(fields)
     field_string = re.sub("[\[\]\']", '', str(fields))
@@ -141,19 +172,19 @@ def bar(fields, country, filter_string, filter_type):
     else:
         raise Http404("Could not determine graph type")
 
-    query = create_query(x, y, graph_type, country, filter_string, filter_type)
+    query = create_query(x, y, graph_type, country, filter_string, filter_type, filter_name)
     collect_from_db_and_write_to_file_bar(query)
+
     # , {'config': config_list})
-
-
-# def filter_identification(bools, price, vis_star_rating, prop_star_rating, prop_review_score):
-#
 
 
 def collect_from_db_and_write_to_file_bar(query):
     cur = connection.cursor()
     cur.execute(query)
     db_columns = cur.fetchone()[0]
+
+    if db_columns is None:
+        raise Http404("There are no results matching the given parameters")
 
     with open("viz/static/viz/js/result.json", "w") as fp:
         json.dump(db_columns, fp)
@@ -162,7 +193,7 @@ def collect_from_db_and_write_to_file_bar(query):
     connection.close()
 
 
-def create_query(x, y, graph_type, country, filter_string, filter_type):
+def create_query(x, y, graph_type, country, filter_string, filter_type, filter_name):
     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + x + " AS xCord," + y + " AS yCord FROM viz_bigtable WHERE "
 
     if graph_type == "NumNum":
@@ -184,16 +215,17 @@ def create_query(x, y, graph_type, country, filter_string, filter_type):
         append = filter_string + "= TRUE AND "
         query += append
     elif filter_type == "int":
+        if filter_name == "":
+            raise Http404("Could not determine filter name")
         filter_upper = filter_string + 0.5
         filter_lower = filter_string - 0.5
-        append = str(filter_string) + ">=" + str(filter_lower) + " AND " + str(filter_string) + "<=" + str(
+        append = filter_name + " >= " + str(filter_lower) + " AND " + filter_name + " <= " + str(
             filter_upper) + " AND "
         query += append
     elif filter_type == "float":
         filter_upper = filter_string + 100
         filter_lower = filter_string - 100
-        append = str(filter_string) + ">=" + str(filter_lower) + " AND " + str(filter_string) + "<=" + str(
-            filter_upper) + " AND "
+        append = "price_usd >= " + str(filter_lower) + " AND " + "price_usd <= " + str(filter_upper) + " AND "
         query += append
     else:
         raise Http404("Could not determine filter type")

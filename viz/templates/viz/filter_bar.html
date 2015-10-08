@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="">
+
+    <title>Hotel Visualization - Selection</title>
+
+    {% load staticfiles %}
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'viz/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="{% static 'viz/css/bootstrap-theme.css' %}" rel="stylesheet">
+    <!-- font icon -->
+    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <!-- Custom styles -->
+    <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
+    <!--Styling for different chart types-->
+    <link href="{% static 'viz/css/barS.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- container section start -->
+<section id="container" class="">
+
+
+    <header class="header dark-bg">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+        </div>
+
+        <!--logo start-->
+        <a href="{% url 'viz:index' %}" class="logo">Hotel <span class="lite">Visualization</span></a>
+        <!--logo end-->
+    </header>
+    <!--header end-->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--overview start-->
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!--overview end-->
+
+            <div class="row">
+                <!-- Selection Form -->
+                <form action="." method="post">
+                    {% csrf_token %}
+
+                    <div class="col-lg-12">
+                        <hr>
+                        <h1>Please select 2 columns:</h1>
+                        <hr>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <br><br><br><br>
+
+                        <h3 id="hotel">Hotel Characteristics:</h3>
+                        <br><br><br><br><br><br><br><br><br>
+
+                        <h3 id="visitor">Visitor Information:</h3>
+                        <br><br><br><br><br><br><br><br><br>
+
+                        <h3 id="search">Search Characteristics:</h3>
+                        <br><br><br><br><br><br><br><br>
+
+                        <h3 id="booking">Booking Characteristics:</h3>
+                        <br>
+                    </div>
+                    {% for checkbox in form.fields %}
+                        {% if forloop.counter in hotel_characteristics_loop %}
+                            <div class="radio" id="hotel">
+                                {{ checkbox }}
+                            </div>
+                            {% if forloop.counter == 9 %}
+                                <hr>
+                            {% endif %}
+                        {% elif forloop.counter in visitor_information_loop %}
+                            <div class="radio" id="visitor">
+                                {{ checkbox }}
+                            </div>
+                            {% if forloop.counter == 14 %}
+                                <hr>
+                            {% endif %}
+                        {% elif forloop.counter in srch_characteristics_loop %}
+                            <div class="radio" id="search">
+                                {{ checkbox }}
+                            </div>
+
+                            {% if forloop.counter == 24 %}
+                                <hr>
+                            {% endif %}
+                        {% elif forloop.counter in booking_characteristics_loop %}
+                            <div class="radio" id="booking">
+                                {{ checkbox }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="col-lg-12">
+                        <h1>
+                            <hr>
+                            Please select one option for filtering the data:
+                        </h1>
+                        <hr>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 id="bool">Booleans:</h3>
+                        {% for radio in form.boolean_filters %}
+                            <div class="radio" id="bool">
+                                {{ radio }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <table>
+                            <tr>
+                                <th><h3 id="num">Numerical:</h3></th>
+                            </tr>
+                            <tr>
+                                <div class="float" id="num">
+                                    <td>{{ form.price_usd.label }}</td>
+                                    <td>{{ form.price_usd }}</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="float" id="num">
+                                    <td>{{ form.prop_review_score.label }}</td>
+                                    <td>{{ form.prop_review_score }}</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="float" id="num">
+                                    <td>{{ form.prop_starrating.label }}</td>
+                                    <td>{{ form.prop_starrating }}</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="float" id="num">
+                                    <td>{{ form.visitor_hist_starrating.label }}</td>
+                                    <td>{{ form.visitor_hist_starrating }}</td>
+                                </div>
+                            </tr>
+                            {{ form.type }}
+                            <tr>
+                                <td><br><input type="submit" value="Submit"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <hr>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Copyright &copy; Hotel Visualization 2015</p>
+                    </div>
+                </div>
+            </footer>
+
+        </section>
+
+
+    </section>
+    <!--main content end-->
+</section>
+
+<!-- javascripts -->
+<script src="{% static 'viz/js/jquery.js' %}"></script>
+<!-- bootstrap -->
+<script src="{% static 'viz/js/bootstrap.min.js' %}"></script>
+
+<!-- nice scroll -->
+<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+<!--custom script for all page-->
+<script src="{% static 'viz/js/scripts.js' %}"></script>
+
+</body>
+</html>

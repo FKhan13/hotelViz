@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Selection</title>
+    <title>Hotel Visualization - Home</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -58,39 +58,12 @@
             </div>
             <!--overview end-->
 
+
             <div class="row">
-                <!-- Selection Form -->
                 <form action="." method="post">
-                    <div class="col-lg-8">
-                        {% csrf_token %}
-                        <label><strong>Please choose the data you're interested in...</strong></label>
-                        {% for checkbox in form.fields %}
-                            <div class="checkbox">
-                                {{ checkbox }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="col-lg-4">
-                        {% for radio in form.boolean_filters %}
-                            <div class="radio">
-                                {{ radio }}
-                            </div>
-                        {% endfor %}
-                        <div class="float">
-                            {{ form.price_usd.label }}:{{ form.price_usd }}
-                        </div>
-                        <div class="float">
-                            {{ form.prop_review_score.label }}:{{ form.prop_review_score }}
-                        </div>
-                        <div class="float">
-                            {{ form.prop_starrating.label }}:{{ form.prop_starrating }}
-                        </div>
-                        <div class="float">
-                            {{ form.visitor_hist_starrating.label }}:{{ form.visitor_hist_starrating }}
-                        </div>
-                            {{ form.type }}
-                        <br><input type="submit" value="Submit"/>
-                    </div>
+                    {% csrf_token %}
+                    <table>{{ form }}</table>
+                    <input type="submit" value="Submit"/>
                 </form>
             </div>
 
@@ -109,6 +82,7 @@
     </section>
     <!--main content end-->
 </section>
+<!-- container section start -->
 
 <!-- javascripts -->
 <script src="{% static 'viz/js/jquery.js' %}"></script>
