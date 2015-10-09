@@ -88,6 +88,7 @@ def field(request, country):
             # create query and render the graph
             columns = form.cleaned_data['fields']
             bar(columns, country_id, filter_string, filter_type, filter_name)
+
             return render_to_response('viz/bar.html')
 
     # if a GET (or any other method) we'll create a blank form
@@ -101,7 +102,6 @@ def field(request, country):
 
 
 def motion(request, country):
-    chart_type = request.GET.get('chartType')
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -147,8 +147,12 @@ def motion(request, country):
             elif radius_val in booleans:
                 rad_type = "bool"
 
-            ymax = find_max_big_table(y)
-            xmax = find_max_big_table(x)
+            ymax = find_max_big_table(y, country_id)
+            xmax = find_max_big_table(x, country_id)
+
+            config = {"xaxis": x, "yaxis": y, "xmax": xmax, "ymax": ymax, "ytype": y_type, "xtype": x_type,
+                      "radtype": rad_type}
+            write_config(config)
 
             # redirect to a new URL:
             return render_to_response('viz/motion.html')
@@ -175,35 +179,35 @@ def bar(fields, country, filter_string, filter_type, filter_name):
     y = None
 
     if columns[0] and columns[1] in numeric:
-        graph_type = "NumNum"
+        graph_type = "numnum"
         x = columns[0]
         y = columns[1]
     elif columns[0] in numeric and columns[1] in identifiers:
-        graph_type = "NumNum"
+        graph_type = "numnum"
         x = columns[1]
         y = columns[0]
     elif columns[0] in identifiers and columns[1] in numeric:
-        graph_type = "NumNum"
+        graph_type = "numnum"
+        x = columns[0]
+        y = columns[1]
+    elif columns[0] and columns[1] in identifiers:
+        graph_type = "numnum"
         x = columns[0]
         y = columns[1]
     elif columns[0] in booleans and columns[1] in numeric:
-        graph_type = "NumBool"
-        x = columns[0]
-        y = columns[1]
+        graph_type = "numbool"
+        x = columns[1]
+        y = columns[0]
     elif columns[0] in numeric and columns[1] in booleans:
-        graph_type = "NumBool"
-        x = columns[1]
-        y = columns[0]
-    elif columns[0] in booleans and columns[1] in identifiers:
-        graph_type = "BoolIdent"
+        graph_type = "numbool"
         x = columns[0]
         y = columns[1]
-    elif columns[0] in identifiers and columns[1] in booleans:
-        graph_type = "BoolIdent"
+    elif columns[0] in booleans and columns[1] in identifiers:
+        graph_type = "numbool"
         x = columns[1]
         y = columns[0]
-    elif columns[0] and columns[1] in booleans:
-        graph_type = "BoolBool"
+    elif columns[0] in identifiers and columns[1] in booleans:
+        graph_type = "numbool"
         x = columns[0]
         y = columns[1]
     else:
@@ -212,7 +216,8 @@ def bar(fields, country, filter_string, filter_type, filter_name):
     query = create_query_bar(x, y, graph_type, country, filter_string, filter_type, filter_name)
     collect_from_db_and_write_to_file(query)
 
-    # , {'config': config_list})
+    config = {"xaxis": x, "yaxis": y, "type": graph_type}
+    write_config(config)
 
 
 def collect_from_db_and_write_to_file(query):
@@ -230,8 +235,13 @@ def collect_from_db_and_write_to_file(query):
     connection.close()
 
 
-def find_max_big_table(column):
-    query = "SELECT MAX(" + column + ") FROM viz_bigtable"
+def write_config(config):
+    with open("viz/static/viz/js/config.json", "w") as fp:
+        json.dump(config, fp)
+
+
+def find_max_big_table(column, country):
+    query = "SELECT MAX(" + column + ") FROM (SELECT " + column + " FROM viz_bigtable WHERE prop_country_id = " + country + ") t"
 
     cur = connection.cursor()
     cur.execute(query)
@@ -284,17 +294,11 @@ def create_query_bar(x, y, graph_type, country, filter_string, filter_type, filt
     query = "SELECT array_to_json(array_agg(row_to_json(t))) AS id FROM (SELECT date_time at time zone 'UTC'," + x + \
             " AS xCord," + y + " AS yCord FROM viz_bigtable WHERE "
 
-    if graph_type == "NumNum":
+    if graph_type == "numnum":
         append = x + " IS NOT NULL AND " + y + " IS NOT NULL AND "
         query += append
-    elif graph_type == "NumBool":
-        append = x + "= TRUE AND " + y + " IS NOT NULL AND "
-        query += append
-    elif graph_type == "BoolIdent":
-        append = x + " IS NOT NULL AND " + y + "= TRUE AND "
-        query += append
-    elif graph_type == "BoolBool":
-        append = x + "= TRUE AND " + y + "= TRUE AND "
+    elif graph_type == "numbool":
+        append = y + "= TRUE AND " + x + " IS NOT NULL AND "
         query += append
     else:
         raise Http404("Graph type is incorrect")
