@@ -1,4 +1,7 @@
-var chart1 = dc.barChart("#test1");
+d3.json("/static/viz/js/config.json", function (configData) {
+    //var config = [{"xaxis": "Country ID", "yaxis": "Avg Bookings", "type": "numnum"}];
+    var config = configData;
+    var chart1 = dc.barChart("#test1");
 var chart2 = dc.barChart("#test2");
 var volumeChart = dc.barChart('#monthly-volume-chart');
 var xAxisDimension;
@@ -6,7 +9,7 @@ var yAxisSumGroup;
 var xmax;
 var xmin;
 
-var config = [{"xaxis": "Country ID", "yaxis": "Avg Bookings", "type": "numnum"}];
+
 var xaxisName = config[0].xaxis;
 var yaxisName = config[0].yaxis;
 
@@ -224,3 +227,5 @@ d3.json("/static/viz/js/result.json", function (error, experiments) {
 
 
 });
+});
+
