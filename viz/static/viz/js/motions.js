@@ -12,6 +12,7 @@ function radius(d) { return ((d.values.radiusVal + 1) * 50000000); }
 function color(d) { return d.key; }
 function key(d) { return d.key; }
 
+
 function independant(d) {
 
 	if (d.values.circumColor == 1)
