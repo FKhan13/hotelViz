@@ -1,0 +1,210 @@
+INFO:root:Started with File: 1
+INFO:root:Visitor Countries: 118
+INFO:root:Total Countries: 150
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 1
+INFO:root:Started with File: 2
+INFO:root:Visitor Countries: 129
+INFO:root:Total Countries: 156
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 2
+INFO:root:Started with File: 3
+INFO:root:Visitor Countries: 128
+INFO:root:Total Countries: 162
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 3
+INFO:root:Started with File: 4
+INFO:root:Visitor Countries: 114
+INFO:root:Total Countries: 148
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 4
+INFO:root:Started with File: 5
+INFO:root:Visitor Countries: 129
+INFO:root:Total Countries: 157
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 5
+INFO:root:Started with File: 6
+INFO:root:Visitor Countries: 125
+INFO:root:Total Countries: 154
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 6
+INFO:root:Started with File: 7
+INFO:root:Visitor Countries: 119
+INFO:root:Total Countries: 149
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 7
+INFO:root:Started with File: 8
+INFO:root:Visitor Countries: 110
+INFO:root:Total Countries: 141
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 8
+INFO:root:Started with File: 9
+INFO:root:Visitor Countries: 122
+INFO:root:Total Countries: 158
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 9
+INFO:root:Started with File: 10
+INFO:root:Visitor Countries: 128
+INFO:root:Total Countries: 159
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 10
+INFO:root:Started with File: 11
+INFO:root:Visitor Countries: 127
+INFO:root:Total Countries: 169
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 11
+INFO:root:Started with File: 12
+INFO:root:Visitor Countries: 117
+INFO:root:Total Countries: 145
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 12
+INFO:root:Started with File: 13
+INFO:root:Visitor Countries: 125
+INFO:root:Total Countries: 151
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 13
+INFO:root:Started with File: 14
+INFO:root:Visitor Countries: 123
+INFO:root:Total Countries: 161
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 14
+INFO:root:Started with File: 15
+INFO:root:Visitor Countries: 126
+INFO:root:Total Countries: 156
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 15
+INFO:root:Started with File: 16
+INFO:root:Visitor Countries: 123
+INFO:root:Total Countries: 163
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 16
+INFO:root:Started with File: 17
+INFO:root:Visitor Countries: 126
+INFO:root:Total Countries: 154
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 17
+INFO:root:Started with File: 18
+INFO:root:Visitor Countries: 125
+INFO:root:Total Countries: 159
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 18
+INFO:root:Started with File: 19
+INFO:root:Visitor Countries: 130
+INFO:root:Total Countries: 154
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 19
+INFO:root:Started with File: 20
+INFO:root:Visitor Countries: 126
+INFO:root:Total Countries: 158
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 20
+INFO:root:Started with File: 21
+INFO:root:Visitor Countries: 126
+INFO:root:Total Countries: 157
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 21
+INFO:root:Started with File: 22
+INFO:root:Visitor Countries: 121
+INFO:root:Total Countries: 151
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 22
+INFO:root:Started with File: 23
+INFO:root:Visitor Countries: 118
+INFO:root:Total Countries: 155
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 23
+INFO:root:Started with File: 24
+INFO:root:Visitor Countries: 120
+INFO:root:Total Countries: 154
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 24
+INFO:root:Started with File: 25
+INFO:root:Visitor Countries: 127
+INFO:root:Total Countries: 158
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 25
+INFO:root:Started with File: 26
+INFO:root:Visitor Countries: 120
+INFO:root:Total Countries: 156
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 26
+INFO:root:Started with File: 27
+INFO:root:Visitor Countries: 120
+INFO:root:Total Countries: 152
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 27
+INFO:root:Started with File: 28
+INFO:root:Visitor Countries: 131
+INFO:root:Total Countries: 158
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 28
+INFO:root:Started with File: 29
+INFO:root:Visitor Countries: 129
+INFO:root:Total Countries: 161
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 29
+INFO:root:Started with File: 30
+INFO:root:Visitor Countries: 127
+INFO:root:Total Countries: 153
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 30
+INFO:root:Started with File: 31
+INFO:root:Visitor Countries: 135
+INFO:root:Total Countries: 159
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 31
+INFO:root:Started with File: 32
+INFO:root:Visitor Countries: 130
+INFO:root:Total Countries: 162
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 32
+INFO:root:Started with File: 33
+INFO:root:Visitor Countries: 130
+INFO:root:Total Countries: 159
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 33
+INFO:root:Started with File: 34
+INFO:root:Visitor Countries: 133
+INFO:root:Total Countries: 165
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 34
+INFO:root:Started with File: 35
+INFO:root:Visitor Countries: 117
+INFO:root:Total Countries: 146
+INFO:root:Created Nodes dictionary
+INFO:root:Done With Links - About to write Json file
+INFO:root:Done With File Number: 35
