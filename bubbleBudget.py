@@ -29,7 +29,8 @@ for i in badness2:
 #with open('data.txt', 'w') as outfile:
     #json.dump(bad2, outfile)
 print ("badness3")
-badness3 = [d for d in budget_array_data if (float(d.get('change')) <= -0.25) and (d.get('budget_2013') > 2600000)]
+badness3 = [d for d in budget_array_data if (d.get('budget_2013') > 2600000)and (d.get('department')=="Health and Human Services")]
+
 print(len (badness3))
 for i in badness3:
     print (i["change"], i["name"])
@@ -37,3 +38,4 @@ for i in badness3:
 
 #x = {"name":"Office of Civil Rights","positions":{"total":{"x":396,"y":114},"department":{"x":95,"y":442}},"id":195,"budget_2012":21000,"change":2.0,"budget_2013":63000,"department":"Agriculture","discretion":"Discretionary"}
 #print(type(x['change']))
+
