@@ -16,7 +16,7 @@
     <!-- bootstrap theme -->
     <link href="{% static 'viz/css/bootstrap-theme.css' %}" rel="stylesheet">
     <!-- font icon -->
-    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet"/>
+    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
@@ -58,9 +58,25 @@
             </div>
             <!--overview end-->
 
-            
+
             <div class="row">
-                <!--Insert Content here-->
+                <div class="col-lg-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <a href="{% url 'viz:week_selection' %}?type=matrix"> <img border="0" alt="Matrix Graph"
+                                                                            src="{% static 'viz/images/matrix.png' %}">
+                                    <br> Co-Occurrence Matrix </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'viz:week_selection' %}?type=force"> <img border="0" alt="Force Graph"
+                                                                               src="{% static 'viz/images/force.png' %}">
+                                    <br> Node-link Force Diagram </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
             </div>
 
             <!-- Footer -->

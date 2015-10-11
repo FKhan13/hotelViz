@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^(?P<country>\D+)/selection/$', views.selection, name='selection'),
     url(r'^(?P<country>\D+)/bar$', views.field, name='bar'),
     url(r'^(?P<country>\D+)/motion$', views.motion, name='motion'),
+    url(r'^play/', views.play, name='play'),
+    url(r'^week_selection/', views.week_selection, name='week_selection'),
 
     # (?P<fields>.+)
 ]

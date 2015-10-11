@@ -119,3 +119,26 @@ class MotionForm(forms.Form):
                                label="Select the data to be displayed by means of the size of the bubble:")
     circum_color = forms.ChoiceField(choices=numeric, required=True,
                                      label="Select the data to be displayed by means of the colour of the circumference of the bubble:")
+
+
+class WeekSelectionForm(forms.Form):
+    choices = (('1', 'Week 1 November 2012 '), ('2', 'Week 2 November 2012'), ('3', 'Week 3 November 2012 '),
+               ('4', 'Week 4 November 2012'),
+               ('5', 'Week 1 December 2012 '), ('6', 'Week 2 December 2012'), ('7', 'Week 3 December 2012 '),
+               ('8', 'Week 4 December 2012'),
+               ('9', 'Week 1 January 2013 '), ('10', 'Week 2 January 2013'), ('11', 'Week 3 January 2013 '),
+               ('12', 'Week 4 January 2013'),
+               ('13', 'Week 1 February 2013 '), ('14', 'Week 2 February 2013'), ('15', 'Week 3 February 2013 '),
+               ('16', 'Week 4 February 2013'),
+               ('17', 'Week 1 March 2013 '), ('18', 'Week 2 March 2013'), ('19', 'Week 3 March 2013 '),
+               ('20', 'Week 4 March 2013'),
+               ('21', 'Week 1 April 2013 '), ('22', 'Week 2 April 2013'), ('23', 'Week 3 April 2013 '),
+               ('24', 'Week 4 April 2013'),
+               ('25', 'Week 1 May 2013 '), ('26', 'Week 2 May 2013'), ('27', 'Week 3 May 2013 '),
+               ('28', 'Week 4 May 2013'),
+               ('29', 'Week 1 June 2013 '), ('30', 'Week 2 June 2013'), ('31', 'Week 3 June 2013 '),
+               ('32', 'Week 4 June 2013'),
+               ('33', 'Week 1 July 2013 '), ('34', 'Week 2 July 2013'), ('35', 'Week 3 July 2013 '),)
+
+    file = forms.ChoiceField(choices=choices, required=True, widget=RadioSelect)
+    graph_type = forms.CharField(required=True,widget=forms.HiddenInput)
