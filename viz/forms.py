@@ -9,7 +9,7 @@ class BarForm(forms.Form):
         ('prop_review_score', 'Hotel Review Score'), ('prop_brand_bool', 'Branded Hotels'),
         ('prop_location_score1', 'Hotel Location Popularity 1'),
         ('prop_location_score2', 'Hotel Location Popularity 2'),
-        ('prop_log_historical_price', 'Hotel Historical Price in US Dollars'),
+        ('prop_log_historical_price', 'Logarithm of the Historical Hotel Price'),
         ('price_usd', 'Hotel Price For A particular Search'),
         ('promotion_flag', 'Hotels That Were on Promotion'),
         # Visitor Information
@@ -92,7 +92,7 @@ class MotionForm(forms.Form):
                ('prop_review_score', 'Hotel Review Score'),
                ('prop_location_score1', 'Hotel Location Popularity 1'),
                ('prop_location_score2', 'Hotel Location Popularity 2'),
-               ('prop_log_historical_price', 'Hotel Historical Price in US Dollars'),
+               ('prop_log_historical_price', 'Logarithm of the Historical Hotel Price'),
                ('price_usd', 'Hotel Price For A particular Search'),
                ('srch_length_of_stay', 'Length of Stay Searched For'),
                ('srch_booking_window', 'The Amount of Time between when the Search was done to the Date of Stay'),
@@ -113,8 +113,8 @@ class MotionForm(forms.Form):
 
     num_bool = numeric + booleans
     name = forms.ChoiceField(choices=identifiers, required=True, label="Select the column you're interested in:")
-    x = forms.ChoiceField(choices=num_bool, required=True, label="Select the data to be plotted on the x-axis:")
-    y = forms.ChoiceField(choices=num_bool, required=True, label="Select the data to be plotted on the y-axis:")
+    x = forms.ChoiceField(choices=numeric, required=True, label="Select the data to be plotted on the x-axis:")
+    y = forms.ChoiceField(choices=numeric, required=True, label="Select the data to be plotted on the y-axis:")
     radius = forms.ChoiceField(choices=num_bool, required=True,
                                label="Select the data to be displayed by means of the size of the bubble:")
     circum_color = forms.ChoiceField(choices=numeric, required=True,

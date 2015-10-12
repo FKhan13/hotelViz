@@ -63,3 +63,9 @@ class BigTable(models.Model):
 class Countries(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True, db_index=True)
     a_name = models.CharField(max_length=40, blank=True, null=True, db_index=True)
+
+
+class Continents(models.Model):
+    name = models.CharField(max_length=30, blank=True, null=True, db_index=True)
+    continent = models.CharField(max_length=50, blank=True, null=True, db_index=True)
+    a_name = models.CharField(max_length=50, blank=True, null=True, db_index=True)

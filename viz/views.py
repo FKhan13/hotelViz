@@ -370,37 +370,45 @@ def play(request):
 
         countries.sort()
 
-        nodes = []
+        countries_and_continents = []
 
-        for country in countries:
-            nodes.append({"name": str(country), "group": random.randint(1, 7)})
-
-        logging.info("Created Nodes dictionary")
-
-        query = "SELECT DISTINCT ON (visitor_location_country_id,prop_country_id) visitor_location_country_id,prop_country_id FROM viz_bigtable WHERE date_time BETWEEN %s AND %s"
-
-        cur.execute(query, date_range)
+        continents = ["Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"]
 
         cur1 = connection.cursor()
-        links = []
-        for row in cur:
-            query = "SELECT COUNT(visitor_location_country_id) FROM viz_bigtable WHERE date_time BETWEEN %s AND %s AND visitor_location_country_id=%s AND prop_country_id=%s;"
-            data = date_range + row
-            cur1.execute(query, data)
 
-            value = cur1.fetchone()[0]
+        cur2 = connection.cursor()
+        for country in countries:
+            sql = "SELECT continent FROM viz_continents WHERE name = %s"
+            data = (str(country),)
+            cur1.execute(sql, data)
 
-            source = countries.index(row[0])
-            target = countries.index(row[1])
+            for row in cur1:
+                if row is not None:
+                    continent = row[0]
+                else:
+                    continent = random.sample(continents, 1)[0]
 
-            links.append({"source": source, "target": target, "value": value})
+            sql2 = " SELECT COUNT(visitor_location_country_id) FROM viz_bigtable WHERE visitor_location_country_id=%s AND date_time BETWEEN %s AND %s"
+            data2 = data + date_range
+            cur2.execute(sql2, data2)
 
-        logging.info("Done With Links - About to write Json file")
+            connections = 0
 
-        file_path = "viz/static/viz/country-data/" + str(file_no) + ".json"
+            for row in cur2:
+                if row is not None:
+                    connections = row[0]
+                else:
+                    connections = 0
+
+            countries_and_continents.append(
+                {"id": str(country), "continent": str(continent), "connections": connections})
+
+        logging.info("Created Countries and continents dictionary")
+
+        file_path = "viz/static/viz/country-data/countries-continents" + str(file_no) + ".json"
 
         with open(file_path, "w") as fp:
-            json.dump({"nodes": nodes, "links": links}, fp)
+            json.dump(countries_and_continents, fp)
 
         logging.info("Done With File Number: " + str(file_no))
         first_date = second_date

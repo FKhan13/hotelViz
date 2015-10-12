@@ -19,6 +19,8 @@
     <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
+    <!-- Used for Matrix graph -->
+    <link href="{% static 'viz/css/matrix.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -62,6 +64,16 @@
             <div class="row">
                 <!--Insert Content here--> <h3>Matrix</h3>
 
+                <div class="col-lg-12">
+                    <p>Order: <select id="order">
+                        <option value="name">by Name</option>
+                        <option value="count">by Frequency</option>
+                        <option value="group">by Cluster</option>
+                    </select>
+
+                    <div id="matrix"></div>
+                </div>
+
                 <!--Get file url to be used by the graph-->
                 <input type="hidden" id="file_string" value="{{ file }}">
                 <!-- Javascript accessing of the string
@@ -91,12 +103,16 @@
 <!-- bootstrap -->
 <script src="{% static 'viz/js/bootstrap.min.js' %}"></script>
 
-<!-- nice scroll -->
-<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>
-<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+{#<!-- nice scroll -->#}
+{#<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>#}
+{#<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>#}
 
 <!--custom script for all page-->
 <script src="{% static 'viz/js/scripts.js' %}"></script>
+
+<!-- Used by Matrix graph -->
+<script src="{% static 'viz/js/d3.v3.min.js' %}"></script>
+<script src="{% static 'viz/js/matrix.js' %}"></script>
 
 </body>
 </html>

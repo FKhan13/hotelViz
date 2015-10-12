@@ -1,0 +1,15 @@
+.background {
+    fill: #eee;
+}
+
+line {
+    stroke: #fff;
+}
+
+text.active {
+    fill: red;
+}
+
+text {
+    font-size: xx-small;
+}

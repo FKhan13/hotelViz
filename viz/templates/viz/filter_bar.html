@@ -162,7 +162,9 @@
                                 </div>
                             </tr>
                             <tr>
-                                <td><br><button type="submit" class="btn btn-primary">Submit</button></td>
+                                <td><br>
+                                    <button type="submit" class="btn btn-primary" id = "submit">Submit</button>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -184,6 +186,7 @@
 
     </section>
     <!--main content end-->
+    <div class="modal"><!-- Place at bottom of page --></div>
 </section>
 
 <!-- javascripts -->
@@ -197,6 +200,8 @@
 
 <!--custom script for all page-->
 <script src="{% static 'viz/js/scripts.js' %}"></script>
+<script src="{% static 'viz/js/loading.js' %}"></script>
+
 
 </body>
 </html>
