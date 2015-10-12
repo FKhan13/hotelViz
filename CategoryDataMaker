@@ -1,3 +1,16 @@
+
+import time
+import psycopg2
+
+try:
+    conn = psycopg2.connect("dbname='hotelViz' user='jedi' host='localhost' password='trance'")
+except:
+    print ("I am unable to connect to the database")
+
+data = []
+
+cur = conn.cursor()
+
 category_data = [{"num_children": 26, "short_label": "Health and Human Services", "total": 921605000, "label": "Health and Human Services"}, {"num_children": 45, "short_label": "Agriculture", "total": 154667000, "label": "Agriculture"}, {"num_children": 15, "short_label": "Treasury", "total": 519490000, "label": "Treasury"}, {"num_children": 9, "short_label": "Veterans Affairs", "total": 137381000, "label": "Veterans Affairs"}, {"num_children": 13, "short_label": "Defense", "total": 620259000, "label": "Defense - Military"}, {"num_children": 3, "short_label": "Personnel Management", "total": 94857000, "label": "Office of Personnel Management"}, {"num_children": 2, "short_label": "Social Security", "total": 885315000, "label": "Social Security Administration"}];
 
 
@@ -6,3 +19,44 @@ short_label = "continent name"
 total = "total amount spent on a particular country"
 label = "same as short label, continent name"
 
+continentlist = ["Africa", "Asia","Antarctica", "Europe","Oceania","South America","North America"]
+#continentlist = ["South America"]
+
+for continent in continentlist:
+    doc = {}
+    cur.execute("SELECT * from continentdata WHERE continent = (%s)", (continent,))
+    rows = cur.fetchall()
+
+    doc["short_label"] = continent
+    doc["label"]= continent
+    doc["num_children"] = len(rows)
+    print("num children", len(rows))
+    totalbookings = 0
+    totalbudget = 0
+    # this function assumes that it only retrieves data fro a particular continent
+    #rows = [1]
+    for countrydata in rows:
+
+        country = countrydata[0]
+
+        cur.execute("SELECT booking_bool, gross_bookings_usd FROM viz_bigtable WHERE prop_country_id = (%s) AND booking_bool = TRUE AND gross_bookings_usd IS NOT NULL", (countrydata[0],))
+        totalrow = cur.fetchall()
+
+
+        countrybookings = sum([pair[0] for pair in totalrow ])
+        countrybudget = sum([pair[1] for pair in totalrow ])
+
+        totalbookings = totalbookings + countrybookings
+        totalbudget = totalbudget + countrybudget
+
+
+    doc["total"] = totalbudget
+    doc["bookings"] = totalbookings
+    data.append(doc)
+
+
+import json
+with open('categoryData.txt', 'w') as outfile:
+    json.dump(data, outfile)
+#print("data", data)
+print("data length", len(data))
