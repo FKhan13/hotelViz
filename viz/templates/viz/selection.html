@@ -46,32 +46,37 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <!--overview start-->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
-                    <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!--overview end-->
 
             <div class="row">
                 <!--Insert Content here-->
                 <div class="col-lg-12">
+                    <h1>Select a graph type...<br><br><br></h1>
                     <table style="width:100%">
                         <tr>
-                            <td>
-                                <a href="{% url 'viz:bar' country %}"> <img border="0" alt="Bar Graph"
-                                                                            src="{% static 'viz/images/chart_bar.png' %}">
+                            <td align="center" style="width: 50%">
+                                <a href="{% url 'viz:bar' country %}"> <img border="0" alt="Bar Graph" width="80%"
+                                                                            src="{% static 'viz/images/bar.PNG' %}">
                                     <br> Bar Graph </a>
+
+
                             </td>
-                            <td>
-                                <a href="{% url 'viz:motion' country %}"> <img border="0" alt="Motion Graph"
-                                                                               src="{% static 'viz/images/bubble.png' %}">
+                            <td align="center" style="width: 50%">
+                                <a href="{% url 'viz:motion' country %}"> <img border="0" alt="Motion Graph" width="80%"
+                                                                               src="{% static 'viz/images/motion.PNG' %}">
                                     <br> Motion Graph </a>
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width: 50%">
+                                <p><strong>This graph is useful to view two dimensions of data. Most of the data in the
+                                    dataset can be viewed effectively by means of this type of chart.</strong></p>
+                            </td>
+                            <td align="center" style="width: 50%">
+                                <p><strong>This graph is useful for viewing six dimensions of data. This allows users to
+                                    ask complex questions that they may not necessarily have thought of
+                                    initially</strong></p>
                             </td>
                         </tr>
                     </table>

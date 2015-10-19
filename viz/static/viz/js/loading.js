@@ -1,6 +1,6 @@
-$body = $("body");
-
-$("#submit").on('click', {
-    ajaxStart: function() { $body.addClass("loading");    },
-     ajaxStop: function() { $body.removeClass("loading"); }    
-});
+(function (d) {
+  d.getElementById('form').onsubmit = function () {
+    d.getElementById('submit').style.display = 'none';
+    d.getElementById('loading2').style.display = 'block';
+  };
+}(document));

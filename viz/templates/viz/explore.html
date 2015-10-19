@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Country Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -52,17 +52,6 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <!--overview start-->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
-                    <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!--overview end-->
 
             <div class="row">
                 <div class="col-lg-8">
@@ -71,6 +60,11 @@
                     <div id="myclass">
                         <h2>Click on a country and then click the first search button to continue...</h2>
                         <br>
+
+                        <p><strong>Due to the fact that the data consists of 10 million rows and the relative amount of
+                            data that the human mind can efficiently comprehend the dataset needs to be filtered in
+                            order to allow for an effective representation of the information contained in the
+                            data...</strong></p>
                     </div>
 
                     <!--Button used to continue to the search page-->
@@ -81,7 +75,9 @@
 
                     <!--Drop Down selection -->
                     <div class="form-group">
-                        <br><br><br><br><br><br><br><br><br><br><label> Don't dispare! The country you are struggling to find is also in this drop down
+                        <br><br><br><br><br><br><br><br><br><br><br><br><label> Don't dispare! The country you are
+                        struggling to
+                        find is also in this drop down
                         menu,
                         click the second search button once you have found where you want to go...</label><br>
                         <br>

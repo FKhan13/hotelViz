@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+    <title>Hotel Visualization - Hotel Bookings Expenditure</title>
+
+
+    {% load staticfiles %}
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'viz/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="{% static 'viz/css/bootstrap-theme.css' %}" rel="stylesheet">
+    <!-- font icon -->
+    <link href="{% static 'viz/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <!-- Custom styles -->
+    <link href="{% static 'viz/css/style.css' %}" rel="stylesheet">
+    <!-- Used by chart -->
+    <link rel="stylesheet" type="text/css"
+          href="http://graphics8.nytimes.com/css/0.1/screen/build/interactive/us/politics/styles.css">
+    <link rel="stylesheet" type="text/css" media="print" href="http://graphics8.nytimes.com/css/0.1/print/styles.css">
+    <link href="{% static 'viz/css/budget.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+</head>
+
+<body id="interactiveABC">
+<!-- container section start -->
+<section id="container" class="">
+
+
+    <header class="header dark-bg">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+        </div>
+
+        <!--logo start-->
+        <a href="{% url 'viz:index' %}" class="logo">Hotel <span class="lite">Visualization</span></a>
+        <!--logo end-->
+    </header>
+    <!--header end-->
+
+    <!--main content start-->
+
+    <section id="main-content">
+        <section class="wrapper">
+            <div id="interactiveABC">
+                <div id="shell">
+
+                    <div id="main">
+                        <div id="interactiveShell">
+                            <div class="columnGroup firstColumnGroup">
+                                <div class="ledeStory">
+
+                                    <div class="module insetHFullWidth">
+
+                                        <div class="storyHeader">
+                                            <h1>Global Expenditure on Hotel Bookings According to Expedia</h1>
+                                        </div>
+                                        <!--close .storyHeader -->
+
+                                        <div class="storySummary">
+                                            <p> A visual analytics tool to assist in understanding money spent on hotel
+                                                bookings in countries around the world</p>
+                                            Note: Although the data of the bubbles is a true reflection of the data on
+                                            the
+                                            site, countries have been randomly assigned to bubbles for anonymity
+                                            purposes.
+                                            Adapted from: <a
+                                                href="http://www.nytimes.com/interactive/2012/02/13/us/politics/2013-budget-proposal-graphic.html?_r=0">
+                                            The New York Times</a>
+                                        </div>
+                                        <!--close .storySummary -->
+                                    </div>
+                                    <!--end .module insetHFullWidth -->
+
+
+                                    <div id="interactiveFreeFormMain">
+                                        <!--BEGIN Stencil generated content. -->
+                                        <!--Project ID: 2012/0202-federal-budget/ -->
+                                        <!--Generated at: Mon Feb 13 18:08:54 2012 -->
+                                        <div class="nytg">
+                                            <![if !IE]>
+                                            <div id="nytg-chartFrame"><![endif]>
+                                                <div id="nytg-chart">
+                                                    <div class="nytg-navBar">
+                                                        <div id="nytg-search" style="display:none;"></div>
+                                                        <ul class="nytg-navigation clearfix">
+                                                            <li id="nytg-nav-all">Global Spending</li>
+                                                            <li id="nytg-nav-mandatory">Hotel Type</li>
+                                                            <li id="nytg-nav-discretionary">Spending vs Bookings</li>
+                                                            <li id="nytg-nav-deparment">Continent totals</li>
+
+                                                            <!--<li id="nytg-nav-comparison">Historical</li> -->
+                                                        </ul>
+                                                    </div>
+                                                    <div id="nytg-tooltip">
+                                                        <div id="nytg-tooltipContainer">
+                                                            <div class="nytg-department"></div>
+                                                            <div class="nytg-rule"></div>
+                                                            <div class="nytg-name"></div>
+                                                            <div class="nytg-discretion"></div>
+                                                            <div class="nytg-fivestar"></div>
+                                                            <div class="nytg-fourstar"></div>
+                                                            <div class="nytg-threestar"></div>
+                                                            <div class="nytg-belowtwostar"></div>
+                                                            <div class="nytg-valuesContainer">
+                                                                <span class="nytg-value"></span>
+                                                                <span class="nytg-change"></span>
+                                                            </div>
+                                                            <div class="nytg-chart"></div>
+                                                            <div class="nytg-tail"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="nytg-overlays">
+                                                        <div class="nytg-overlay" id="nytg-totalOverlay">
+                                                            <div class="nytg-overview">
+                                                                <h5>Total expenditure on Expedia Hotel Bookings</h5>
+
+                                                                <p>$106.3 million in total has been spent on hotel
+                                                                    bookings
+                                                                    over the period November 2012 to June 2013 on
+                                                                    Expedia</p>
+                                                                <svg id="nytg-deficitCircle"></svg>
+                                                            </div>
+                                                            <div class="nytg-aside">
+                                                                <p> Total of 275 000 bookings</p>
+                                                            </div>
+                                                            <div class="nytg-increasesLabel">
+                                                                <span>Largest Increases</span>
+                                                            </div>
+                                                            <div class="nytg-decreasesLabel">
+                                                                <span>Largest Decrease</span>
+                                                            </div>
+                                                            <div id="nytg-colorKey">
+                                                                <p>Circles are sized according to expenditure in
+                                                                    2013.</p>
+
+                                                                <div id="nytg-sizeKey">
+
+                                                                    <div style="left:32px;top:57px;"
+                                                                         class="nytg-circleKeyLabel">
+                                                                        <span>$1 million</span>
+                                                                    </div>
+                                                                    <svg id="nytg-scaleKey"></svg>
+                                                                </div>
+                                                                <p>Colour shows amount of decrease or increase from
+                                                                    2012.</p>
+                                                                <ul class="nytg-colorSwatches">
+                                                                    <li class="change-decrease3"></li>
+                                                                    <li class="change-decrease2"></li>
+                                                                    <li class="change-decrease1"></li>
+                                                                    <li class="change-increase1"></li>
+                                                                    <li class="change-increase2"></li>
+                                                                    <li class="change-increase3"></li>
+                                                                </ul>
+                                                                <ul class="nytg-colorTicks">
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                </ul>
+                                                                <ul class="nytg-colorLabels">
+
+                                                                    <li>0</li>
+                                                                    <li>100%</li>
+                                                                    <li>200%</li>
+                                                                    <li>300%</li>
+                                                                    <li>400%</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="nytg-overlay" id="nytg-mandatoryOverlay">
+                                                            <div class="nytg-mandatoryExplainer">
+                                                            </div>
+                                                            <div class="nytg-mandatoryAside">
+                                                                <h5>Hotels Belonging to a chain</h5>
+
+                                                                <p><strong
+                                                                        style="font-size:16px;padding-bottom:4px;display:block;">$85.8
+                                                                    million</strong></p>
+
+                                                                <p> 85% of bookings made were of hotels which belonged
+                                                                    to a
+                                                                    chain. </p>
+                                                                <br>
+
+                                                                <p> The countries found on this side were those that had
+                                                                    a
+                                                                    number of chain hotel bookings that were greater
+                                                                    than
+                                                                    50% </p>
+                                                            </div>
+                                                            <div class="nytg-discretionaryExplainer">
+                                                            </div>
+                                                            <div class="nytg-discretionaryAside">
+                                                                <h5>Independent Hotel Bookings</h5>
+
+                                                                <p><strong
+                                                                        style="font-size:16px;padding-bottom:4px;display:block;">$20.5
+                                                                    million</strong></p>
+
+                                                                <p>15% of bookings made were of independent hotels.</p>
+                                                                <br>
+
+                                                                <p> The countries located on this side were those that
+                                                                    had a
+                                                                    number of independent hotel bookings that were
+                                                                    greater
+                                                                    than 50% </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="nytg-overlay" id="nytg-discretionaryOverlay">
+                                                            <div id="nytg-discretionaryIntro">
+                                                                <h5>Hotel Expenditure in reference to bookings</h5>
+
+                                                                <p>It is interesting to note that number of bookings has
+                                                                    a
+                                                                    direct correlation to expenditure</p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="nytg-overlay" id="nytg-departmentOverlay">
+
+                                                        </div>
+                                                        <div class="nytg-overlay" id="nytg-comparisonOverlay">
+                                                            <h5>Comparison Overlay</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div id="nytg-chartCanvas"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--END Stencil generated content. -->    </div>
+                                    <!--close main free form -->
+
+                                </div>
+                                <!--close .ledeStory -->
+                            </div>
+                            <!--close .columnGroup -->
+                        </div>
+                        <!--close #interactiveShell -->
+                    </div>
+                    <!--close #main -->
+
+                </div>
+                <!--close #page -->
+
+                <!--close #shell -->
+            </div>
+
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Copyright &copy; Hotel Visualization 2015</p>
+                    </div>
+                </div>
+            </footer>
+
+        </section>
+
+
+    </section>
+    <!--main content end-->
+</section>
+<!-- container section start -->
+
+<!-- javascripts -->
+<script src="{% static 'viz/js/jquery.js' %}"></script>
+<!-- bootstrap -->
+<script src="{% static 'viz/js/bootstrap.min.js' %}"></script>
+
+<!-- nice scroll -->
+<script src="{% static 'viz/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'viz/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+<!--custom script for all page-->
+<script src="{% static 'viz/js/scripts.js' %}"></script>
+<script src="{% static 'viz/js/budget.js' %}"></script>
+
+</body>
+</html>

@@ -50,6 +50,10 @@ class SetView(generic.TemplateView):
     template_name = "viz/set.html"
 
 
+class Expenditure(generic.TemplateView):
+    template_name = "viz/expenditure.html"
+
+
 def selection(request, country):
     return render_to_response('viz/selection.html', {"country": country})
 
@@ -154,7 +158,7 @@ def motion(request, country):
             xmax = find_max_big_table(x, country_id)
 
             config = {"xaxis": x, "yaxis": y, "xmax": xmax, "ymax": ymax, "ytype": y_type, "xtype": x_type,
-                      "radtype": rad_type}
+                      "radtype": rad_type, "radname":radius_val}
             write_config(config)
 
             # redirect to a new URL:
@@ -162,7 +166,9 @@ def motion(request, country):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = MotionForm()
+        form = MotionForm(
+            initial={'name': 'prop_id', 'x': 'visitor_hist_adr_usd', 'y': 'price_usd', 'radius': 'prop_starrating',
+                     'circum_color': 'prop_review_score'})
 
     return render(request, 'viz/filter_motion.html', {'form': form})
 

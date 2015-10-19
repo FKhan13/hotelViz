@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Matrix</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -48,27 +48,22 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <!--overview start-->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
-                    <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!--overview end-->
-
 
             <div class="row">
-                <!--Insert Content here--> <h3>Matrix</h3>
+                <h2>Visitor country vs Destination<br></h2>
+                <!--Insert Content here--> <h5>This matrix diagram visualizes the connections between the country that
+                the user has
+                searched from verses the country they wish to visit. The colour of the blocks represent the continent
+                the
+                country is in and a darker colour indicates that a search combination occurred more frequently. The
+                country data in the dataset has been anonymised, which results in the country names being represented
+                as identifiers rather than actual country names.</h5>
 
                 <div class="col-lg-12">
                     <p>Order: <select id="order">
                         <option value="name">by Name</option>
                         <option value="count">by Frequency</option>
-                        <option value="group">by Cluster</option>
+                        <option value="group">by Continent</option>
                     </select>
 
                     <div id="matrix"></div>

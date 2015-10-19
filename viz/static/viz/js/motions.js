@@ -54,8 +54,9 @@ d3.json("/static/viz/js/config.json", function (configdata) {
     var ytype = config.ytype;
     var xtype = config.xtype;
     var radtype = config.radtype;
+    var radname = config.radname;
 
-    var domain0 = [new Date(2012, 0, 1), new Date(2013, 11, 31)];
+    var domain0 = [new Date(2012, 10, 1), new Date(2013, 7, 31)];
     //domain1 = [new Date(2000, 1, 1), new Date(2000, 1, 2)];
 // Chart dimensions.
     var margin = {top: 100, right: 300, bottom: 150, left: 100},
@@ -189,7 +190,31 @@ d3.json("/static/viz/js/config.json", function (configdata) {
                 return independant(d);
             })
             .call(position)
-            .sort(order);
+            .sort(order)
+            .on("mouseover",function(d,i) {
+          var el = d3.select(this)
+          var xpos = Number(el.attr('cx'))
+          //var xpos = width/2
+          //var ypos = (el.attr('cy')+ 200)
+          var ypos = height/2 + 150
+		  console.log(typeof(d.key))
+
+          el.style("stroke","#000").style("stroke-width",3);
+          d3.select("#nytg-tooltip").style('top',ypos+"px").style('left',xpos+"px").style('display','block');
+            //.classed('nytg-plus', (d.changeCategory > 0))
+            //.classed('nytg-minus', (d.changeCategory < 0));
+         d3.select("#nytg-tooltip .nytg-name").text(yaxisName +': '+ y(d))
+          d3.select("#nytg-tooltip .nytg-discretion").text(radname + ': ' + d.values.radiusval)
+
+
+          d3.select("#nytg-tooltip .nytg-department").text("Name: " + key(d))
+	  d3.select("#nytg-tooltip .nytg-value").html(xaxisName + ": " + x(d))})
+
+
+        .on("mouseout",function(d,i) {
+          d3.select(this)
+          .style("stroke-width",1)
+       d3.select("#nytg-tooltip").style('display','none')});
 
         // Add a title.
         dot.append("title")
@@ -268,7 +293,7 @@ d3.json("/static/viz/js/config.json", function (configdata) {
         // For the interpolated data, the dots and label are redrawn.
 
         function tweenYear() {
-            var year = d3.interpolate(new Date(2012, 1, 1), new Date(2013, 11, 31));
+            var year = d3.interpolate(new Date(2012, 11, 1), new Date(2013, 7, 31));
             return function (t) {
                 displayYear(year(t));
             };

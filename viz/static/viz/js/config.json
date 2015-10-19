@@ -1,1 +1,1 @@
-{"xaxis": "price_usd", "type": "numbool", "yaxis": "promotion_flag"}
+{"xtype": "num", "radtype": "num", "radname": "prop_starrating", "ymax": 403.14, "ytype": "num", "yaxis": "price_usd", "xmax": 271.44, "xaxis": "visitor_hist_adr_usd"}

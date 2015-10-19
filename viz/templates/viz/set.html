@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
 
-    <title>Hotel Visualization - Home</title>
+    <title>Hotel Visualization - Pre-determined Graph Selection</title>
 
     {% load staticfiles %}
     <!-- Bootstrap CSS -->
@@ -46,32 +46,53 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <!--overview start-->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i> Interactive Page </h3>
-                    <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="{% url 'viz:index' %}">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!--overview end-->
-
 
             <div class="row">
                 <div class="col-lg-12">
+                    <h2>Select a graph that you would like to view... <br><br></h2>
                     <table style="width:100%">
                         <tr>
-                            <td>
+                            <td align="center" style="width:33%;height: 50%">
                                 <a href="{% url 'viz:week_selection' %}?type=matrix"> <img border="0" alt="Matrix Graph"
-                                                                            src="{% static 'viz/images/matrix.png' %}">
-                                    <br> Co-Occurrence Matrix </a>
+                                                                                           style="padding: 5%"
+                                                                                           width="100%"
+                                                                                           src="{% static 'viz/images/matrix 2.png' %}">
+                                    <br> Co-occurrence Matrix </a>
+
+
                             </td>
-                            <td>
+                            <td align="center" style="width:33%;height: 50%">
                                 <a href="{% url 'viz:week_selection' %}?type=force"> <img border="0" alt="Force Graph"
-                                                                               src="{% static 'viz/images/force.png' %}">
-                                    <br> Node-link Force Diagram </a>
+                                                                                          width="100%"
+                                                                                          style="padding: 5%"
+                                                                                          src="{% static 'viz/images/force.png' %}">
+                                    <br>Force Directed Graph</a>
+
+
+                            </td>
+                            <td align="center" style="width:33%;height: 50%">
+                                <a href="{% url 'viz:expenditure' %}"> <img border="0" alt="Force Graph" width="100%"
+                                                                            style="padding: 5%"
+                                                                            src="{% static 'viz/images/budget_full.png' %}">
+                                    <br> Expenditure Diagram </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width:33%">
+                                <p><strong>This graph shows the country that the user has searched from verses
+                                    the
+                                    country that they wish to visit. This is useful in order to make
+                                    observations regarding the popularity of the countries in the dataset.</strong></p>
+                            </td>
+                            <td align="center" style="width:33%">
+                                <p><strong>This graph shows the connections between the country that the user has
+                                    searched from verses the country they wish to visit. This is similar to the
+                                    co-occurence matrix except it allows a user to better visualise the amount of times
+                                    a particular search combination has occurred</strong></p>
+                            </td>
+                            <td align="center" style="width:33%">
+                                <p><strong>A visual analytics tool to assist in understanding money spent on hotel
+                                    bookings in countries around the world</strong></p>
                             </td>
                         </tr>
                     </table>
