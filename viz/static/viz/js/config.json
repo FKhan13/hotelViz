@@ -1,1 +1,1 @@
-{"xtype": "num", "radtype": "num", "radname": "prop_starrating", "ymax": 403.14, "ytype": "num", "yaxis": "price_usd", "xmax": 271.44, "xaxis": "visitor_hist_adr_usd"}
+{"radtype": "num", "xmax": 334.89, "yaxis": "price_usd", "xaxis": "visitor_hist_adr_usd", "ymax": 8150.0, "radname": "prop_starrating", "ytype": "num", "xtype": "num"}
